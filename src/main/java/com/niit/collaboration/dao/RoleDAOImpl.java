@@ -12,32 +12,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.niit.collaboration.model.Blog;
+import com.niit.collaboration.model.Role;
 
-@Repository("blogDAO")
-public class BlogDAOImpl implements BlogDAO {
-
-	Logger log = LoggerFactory.getLogger(BlogDAOImpl.class);
+@Repository("roleDAO")
+public class RoleDAOImpl implements RoleDAO {
+	
+	Logger log = LoggerFactory.getLogger(RoleDAOImpl.class);
 
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public BlogDAOImpl(SessionFactory sessionFactory) {
+	public RoleDAOImpl(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 
 	}
 
 	
 	@Transactional
-	public Blog get(String id) {
+	public Role get(String id) {
 		log.debug("start : calling get");
-		String hql = "from Blog where id=" + "'" + id + "'";
+		String hql = "from Role where id=" + "'" + id + "'";
 		@SuppressWarnings("unchecked")
-		Query<Blog> query = sessionFactory.getCurrentSession().createQuery(hql);
+		Query<Role> query = sessionFactory.getCurrentSession().createQuery(hql);
 
-		List<Blog> listBlog = query.getResultList();
-		if (listBlog != null && !listBlog.isEmpty()) {
-			return listBlog.get(0);
+		List<Role> listRole = query.getResultList();
+		if (listRole != null && !listRole.isEmpty()) {
+			return listRole.get(0);
 		}
 		log.debug("end : calling get");
 		return null;
@@ -47,10 +47,10 @@ public class BlogDAOImpl implements BlogDAO {
 	
 
 	@Transactional
-	public boolean save(Blog blog) {
+	public boolean save(Role role) {
 		log.debug("starting of the method saveOrUpdate");
 		try {
-			sessionFactory.getCurrentSession().save(blog);
+			sessionFactory.getCurrentSession().saveOrUpdate(role);
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -61,10 +61,10 @@ public class BlogDAOImpl implements BlogDAO {
 	}
 	
 	@Transactional
-	public boolean update(Blog blog) {
+	public boolean update(Role role) {
 		log.debug("starting of the method saveOrUpdate");
 		try {
-			sessionFactory.getCurrentSession().update(blog);
+			sessionFactory.getCurrentSession().saveOrUpdate(role);
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,26 +77,29 @@ public class BlogDAOImpl implements BlogDAO {
 	@Transactional
 	public boolean delete(String id) {
 
-		Blog BlogToDelete = new Blog();
+		Role RoleToDelete = new Role();
 		try {
-			BlogToDelete.setId(id);
+			RoleToDelete.setId(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		sessionFactory.getCurrentSession().delete(BlogToDelete);
+		sessionFactory.getCurrentSession().delete(RoleToDelete);
 		return false;
 
 	}
 
 	@Transactional
-	public List<Blog> list() {
+	public List<Role> list() {
 		log.debug("start : calling list");
 		@SuppressWarnings({ "unchecked", "deprecation" })
-		List<Blog> listBlog = (List<Blog>) sessionFactory.getCurrentSession().createCriteria(Blog.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Role> listRole = (List<Role>) sessionFactory.getCurrentSession().createCriteria(Role.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		log.debug("end : calling list");
-		return listBlog;
+		return listRole;
 	}
+
+
 
 
 }

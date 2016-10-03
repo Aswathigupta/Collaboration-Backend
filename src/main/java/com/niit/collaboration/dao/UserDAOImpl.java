@@ -17,7 +17,7 @@ import com.niit.collaboration.model.User;
 
 @Repository("userDAO")
 public class UserDAOImpl implements UserDAO {
-	
+
 	Logger log = LoggerFactory.getLogger(UserDAOImpl.class);
 
 	@Autowired
@@ -28,7 +28,6 @@ public class UserDAOImpl implements UserDAO {
 
 	}
 
-	
 	@Transactional
 	public User get(String id) {
 		log.debug("start : calling get");
@@ -44,8 +43,7 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 
 	}
-	
-	
+
 	@Transactional
 	public boolean save(User user) {
 		log.debug("starting of the method saveOrUpdate");
@@ -59,7 +57,7 @@ public class UserDAOImpl implements UserDAO {
 		log.debug("ending of the method saveOrUpdate");
 		return false;
 	}
-	
+
 	@Transactional
 	public boolean update(User user) {
 		log.debug("starting of the method saveOrUpdate");
@@ -93,12 +91,25 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> list() {
 		log.debug("start : calling list");
 		@SuppressWarnings({ "unchecked", "deprecation" })
-		List<User> listUser = (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<User> listUser = (List<User>) sessionFactory.getCurrentSession().createCriteria(User.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		log.debug("end : calling list");
 		return listUser;
 	}
 
-	
-	
+	@Transactional
+	public User authenticate(String id, String password) {
+		String hql = "from User where id= '" + id + "' and " + " password ='" + password + "'";
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+
+		@SuppressWarnings("unchecked")
+		List<User> list = (List<User>) query.list();
+
+		if (list != null && !list.isEmpty()) {
+			return list.get(0);
+		}
+		return null;
+
+	}
 
 }

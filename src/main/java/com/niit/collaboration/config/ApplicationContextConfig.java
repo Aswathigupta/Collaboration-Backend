@@ -18,15 +18,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.niit.collaboration.model.Blog;
 import com.niit.collaboration.model.Forum;
+import com.niit.collaboration.model.Job;
 import com.niit.collaboration.model.Role;
-import com.niit.collaboration.model.UserDetails;
+import com.niit.collaboration.model.User;
 import com.niit.collaboration.model.UserRole;
 
 @EnableWebMvc
 @Configuration
 @ComponentScan("com.niit")
 @EnableTransactionManagement
-public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
+public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 
 	@Bean(name = "datasource")
 	public DataSource getOracleDataSource() {
@@ -56,11 +57,12 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter{
 	public SessionFactory getSessionFactory(DataSource dataSource) {
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
 	//	sessionBuilder.addProperties(getHibernateProperties());
-		sessionBuilder.addAnnotatedClass(UserDetails.class);
 		sessionBuilder.addAnnotatedClass(Blog.class);
 		sessionBuilder.addAnnotatedClass(Forum.class);
 		sessionBuilder.addAnnotatedClass(UserRole.class);
 		sessionBuilder.addAnnotatedClass(Role.class);
+		sessionBuilder.addAnnotatedClass(Job.class);
+		sessionBuilder.addAnnotatedClass(User.class);
 		return sessionBuilder.buildSessionFactory();
 	}
 

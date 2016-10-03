@@ -42,7 +42,8 @@ public class TestBlogDAO {
 		blog.setDescription("this is blog 1");
 		blog.setStatus('N');
 		blog.setTitle("reunion");
-		blogDAO.saveOrUpdate(blog);
+		blogDAO.save(blog);
+		blogDAO.update(blog);
 		//Assert.assertEquals("Blog test case", true);
 	}
 	
@@ -60,7 +61,8 @@ public class TestBlogDAO {
 		blog.setDescription("this is blog 1");
 		blog.setStatus('N');
 		blog.setTitle("reunion");
-		blogDAO.saveOrUpdate(blog);
+		blogDAO.save(blog);
+		blogDAO.update(blog);
 	}
 
 }

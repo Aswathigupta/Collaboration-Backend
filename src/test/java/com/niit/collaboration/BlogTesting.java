@@ -28,12 +28,13 @@ public class BlogTesting {
 		Timestamp timestamp = new Timestamp(time);
 
 
-		blog.setId("BL025566");
-		blog.setDescription("Annual Day Ceremony");
-		blog.setTitle("Ceremony");
-		blog.setStatus('A');
+		blog.setId("BL04");
+		blog.setDescription("Reunion of alumnis");
+		blog.setTitle("Reunion");
+		blog.setStatus('P');
 		blog.setCreatedat(timestamp);
-		blogDAO.saveOrUpdate(blog);
+		blogDAO.save(blog);
+		//blogDAO.update(blog);
 
 		System.out.println("\n***********\n"+blogDAO.list()+"\n***********\n");
 		if (blogDAO.get("BL01") == null) {

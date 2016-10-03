@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-//import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -29,7 +29,7 @@ public class Blog implements Serializable {
 
 	private char status;
 	
-//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy HH:mm:ss", timezone="IST")
 	private Date createdat;
 
 	public Date getCreatedat() {
