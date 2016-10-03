@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "userdetails")
 @Component
-public class User {
+public class User extends BaseDomain{
 
 	@Id
 	private String id;
@@ -28,17 +28,17 @@ public class User {
 
 	private String contactNumber;
 	
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	
-	private Set<UserRole> UserRoles;
-
-	public Set<UserRole> getUserRoles() {
-		return UserRoles;
-	}
-
-	public void setUserRoles(Set<UserRole> userRoles) {
-		UserRoles = userRoles;
-	}
+//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//	
+//	private Set<UserRole> UserRoles;
+//
+//	public Set<UserRole> getUserRoles() {
+//		return UserRoles;
+//	}
+//
+//	public void setUserRoles(Set<UserRole> userRoles) {
+//		UserRoles = userRoles;
+//	}
 
 	public String getId() {
 		return id;
@@ -87,9 +87,6 @@ public class User {
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
 	}
-
-	
-	
 
 }
 
